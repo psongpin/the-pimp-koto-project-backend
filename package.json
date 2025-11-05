@@ -25,6 +25,10 @@
     "docker:prod:stop": "docker-compose -f docker-compose.prod.yml down",
     "docker:prod:logs": "docker-compose -f docker-compose.prod.yml logs -f",
     "docker:prod:clean": "docker-compose -f docker-compose.prod.yml down -v",
+    "better-auth:generate": "pnpm dlx @better-auth/cli@latest generate",
+    "drizzle-kit:generate": "drizzle-kit generate",
+    "drizzle-kit:migrate": "drizzle-kit migrate",
+    "drizzle-kit:studio": "drizzle-kit studio",
     "prepare": "husky"
   },
   "keywords": [],
@@ -33,19 +37,24 @@
   "dependencies": {
     "@fastify/autoload": "^6.0.0",
     "@fastify/sensible": "^6.0.0",
+    "better-auth": "^1.3.34",
+    "drizzle-orm": "^0.44.7",
     "fastify": "^5.0.0",
     "fastify-cli": "^7.4.0",
-    "fastify-plugin": "^5.0.0"
+    "fastify-plugin": "^5.0.0",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.39.1",
     "@types/node": "^22.1.0",
+    "@types/pg": "^8.15.6",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
     "c8": "^10.1.2",
     "concurrently": "^9.0.0",
+    "drizzle-kit": "^0.31.6",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "fastify-tsconfig": "^3.0.0",
