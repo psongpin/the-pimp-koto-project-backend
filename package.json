@@ -27,7 +27,7 @@
     "docker:prod:clean": "docker-compose -f docker-compose.prod.yml down -v",
     "docker:cleanup": "docker system prune -f",
     "docker:cleanup:all": "docker system prune -af --volumes",
-    "better-auth:generate": "pnpm dlx @better-auth/cli@latest generate",
+    "better-auth:generate": "pnpm dlx @better-auth/cli@latest generate --output src/db/schema/betterAuth.ts",
     "drizzle-kit:generate": "drizzle-kit generate",
     "drizzle-kit:migrate": "drizzle-kit migrate",
     "drizzle-kit:studio": "drizzle-kit studio",
