@@ -29,6 +29,7 @@ services:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: ${POSTGRES_PORT:-5432}
       POSTGRES_DB_URL: ${POSTGRES_DB_URL_DOCKER}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
     depends_on:
       - postgres
     restart: unless-stopped

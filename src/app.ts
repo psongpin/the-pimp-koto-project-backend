@@ -3,13 +3,15 @@ import AutoLoad, { AutoloadPluginOptions } from "@fastify/autoload";
 import { FastifyPluginAsync, FastifyServerOptions } from "fastify";
 import fastifyCors from "@fastify/cors";
 
-import { TRUSTED_ORIGINS } from "@/lib/constants/origin";
+import { TRUSTED_ORIGINS } from "./lib/constants/origin";
 
 export interface AppOptions
   extends FastifyServerOptions,
     Partial<AutoloadPluginOptions> {}
 // Pass --options via CLI arguments in command to enable these options.
-const options: AppOptions = {};
+const options: AppOptions = {
+  logger: true,
+};
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,

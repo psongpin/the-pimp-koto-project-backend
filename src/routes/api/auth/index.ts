@@ -1,5 +1,5 @@
 import { FastifyPluginAsync } from "fastify";
-import { auth } from "@/auth";
+import { auth } from "../../../auth";
 
 const authCatchAll: FastifyPluginAsync = async (
   fastify,
