@@ -19,6 +19,9 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
+# Install dependencies again to ensure all packages are available
+RUN pnpm install --frozen-lockfile
+
 # Expose port
 EXPOSE 8000
 

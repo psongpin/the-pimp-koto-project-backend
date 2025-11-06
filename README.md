@@ -1,41 +1,26 @@
 # The Pimp Koto Project - Backend
 
-A modern Fastify backend application built with TypeScript, PostgreSQL, Drizzle ORM, Better Auth, and Docker containerization.
+A modern Fastify backend application with TypeScript, PostgreSQL, and Docker.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - [Docker](https://www.docker.com/get-started) and Docker Compose
-- [pnpm](https://pnpm.io/) (for local development)
-- [Node.js 22+](https://nodejs.org/) (for editor support)
+- [pnpm](https://pnpm.io/)
+- [Node.js 22+](https://nodejs.org/)
 
 ### Setup
 
 1. Clone the repository
 2. Copy environment file: `cp .env.example .env`
 3. Update the `.env` file with your database credentials
-4. Install dependencies for editor support: `pnpm install`
-5. Start the database: `pnpm docker:dev`
-6. Run database migrations: `pnpm drizzle-kit:migrate`
+4. Start the development environment: `pnpm docker:dev`
+5. Run database migrations: `pnpm drizzle-kit:migrate`
 
-## 🐳 Docker Development
+## 🐳 Docker Commands
 
-### Development Environment
-
-Start the complete development stack with hot reloading:
-
-```bash
-pnpm docker:dev
-```
-
-This starts:
-
-- **Fastify Backend** on [http://localhost:8000](http://localhost:8000)
-- **PostgreSQL Database** on port 5432
-- **pgAdmin** on [http://localhost:8080](http://localhost:8080)
-
-### Development Commands
+### Development
 
 ```bash
 # Start development environment
@@ -51,48 +36,7 @@ pnpm docker:dev:logs
 pnpm docker:dev:clean
 ```
 
-## 🗄️ Database Management
-
-### Drizzle ORM
-
-This project uses Drizzle ORM for type-safe database operations.
-
-```bash
-# Generate database migrations
-pnpm drizzle-kit:generate
-
-# Apply migrations to database
-pnpm drizzle-kit:migrate
-
-# Open Drizzle Studio (database browser)
-pnpm drizzle-kit:studio
-```
-
-### Better Auth
-
-Authentication is handled by Better Auth for secure user management.
-
-```bash
-# Generate auth schema
-pnpm better-auth:generate
-```
-
-## 🏭 Production Deployment
-
-### Production Environment
-
-Deploy the production-ready stack:
-
-```bash
-pnpm docker:prod
-```
-
-This starts:
-
-- **Fastify Backend** (optimized build) on port 8000
-- **PostgreSQL Database** on port 5432
-
-### Production Commands
+### Production
 
 ```bash
 # Start production environment
@@ -108,9 +52,35 @@ pnpm docker:prod:logs
 pnpm docker:prod:clean
 ```
 
-## 🛠️ Local Development (Alternative)
+### Cleanup
 
-For local development without Docker:
+```bash
+# Clean up Docker images and build cache
+pnpm docker:cleanup
+
+# Aggressive cleanup (removes all unused Docker resources)
+pnpm docker:cleanup:all
+```
+
+## 🗄️ Database Commands
+
+```bash
+# Generate database migrations
+pnpm drizzle-kit:generate
+
+# Apply migrations to database
+pnpm drizzle-kit:migrate
+
+# Open Drizzle Studio (database browser)
+pnpm drizzle-kit:studio
+
+# Generate auth schema
+pnpm better-auth:generate
+```
+
+## 🛠️ Development Commands
+
+### Local Development (Alternative to Docker)
 
 ```bash
 # Install dependencies
@@ -129,40 +99,25 @@ pnpm start
 pnpm test
 ```
 
-## 📁 Project Structure
+### Code Quality
 
-```
-src/
-├── app.ts              # Main Fastify application
-├── auth.ts             # Better Auth configuration
-├── db/                 # Database configuration
-│   ├── index.ts        # Database connection
-│   └── schema.ts       # Drizzle schema definitions
-├── plugins/            # Fastify plugins
-│   ├── sensible.ts
-│   └── support.ts
-└── routes/             # API routes
-    ├── root.ts
-    └── example/
-        └── index.ts
+```bash
+# Lint code
+pnpm lint
 
-drizzle/                # Database migrations
-├── meta/               # Migration metadata
-└── *.sql              # Generated SQL migrations
+# Fix linting issues
+pnpm lint:fix
 
-drizzle.config.ts       # Drizzle ORM configuration
-docker/                 # Docker configuration
-├── postgres/           # PostgreSQL setup
-└── pgadmin/           # pgAdmin configuration
+# Format code
+pnpm format
 
-test/                  # Test files
+# Check formatting
+pnpm format:check
 ```
 
-## 🔧 Configuration
+## 🔧 Environment Configuration
 
-### Environment Variables
-
-Configure your application in `.env`:
+Create a `.env` file with:
 
 ```bash
 # Database Configuration
@@ -181,50 +136,49 @@ PGADMIN_DEFAULT_PASSWORD=your_pgadmin_password
 BETTER_AUTH_SECRET=your_randomly_generated_secret_key
 ```
 
-### Database URLs
+## 🌐 Services
 
-The project uses two different database URLs:
+When running, the following services will be available:
 
-- **`POSTGRES_DB_URL`**: For host machine connections (migrations, local development)
-- **`POSTGRES_DB_URL_DOCKER`**: For Docker container connections (uses service name `postgres`)
+- **Backend API**: [http://localhost:8000](http://localhost:8000)
+- **pgAdmin** (dev only): [http://localhost:8080](http://localhost:8080)
+- **PostgreSQL**: localhost:5432
 
-### Docker Architecture
+## 🚨 Troubleshooting
 
-- **Multi-stage Dockerfile** with base, development, and production stages
-- **Named volumes** for data persistence
-- **Development**: Includes hot reloading and pgAdmin
-- **Production**: Optimized build with security features
-
-## 🧪 Testing
+### Docker Issues
 
 ```bash
-# Run tests in Docker environment
-docker exec pimp-koto-backend-dev pnpm test
-
-# Or run tests locally
-pnpm test
+# Clean up and rebuild
+pnpm docker:cleanup:all
+pnpm docker:dev
 ```
 
-## 📚 API Documentation
+### Database Issues
 
-The API is built with Fastify. Once running, you can explore:
+```bash
+# View database logs
+pnpm docker:dev:logs
 
-- API endpoints at [http://localhost:8000](http://localhost:8000)
-- Auto-generated docs (if configured)
+# Reset database
+pnpm docker:dev:clean
+pnpm docker:dev
+pnpm drizzle-kit:migrate
+```
 
-## 🔗 Useful Links
+### TypeScript Issues
 
-- [Fastify Documentation](https://fastify.dev/docs/latest/)
-- [Drizzle ORM Documentation](https://orm.drizzle.team/)
-- [Better Auth Documentation](https://www.better-auth.com/docs)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Docker Documentation](https://docs.docker.com/)
-- [pnpm Documentation](https://pnpm.io/)
+```bash
+# Rebuild TypeScript
+pnpm build:ts
+
+# Check for errors
+pnpm lint
+```
 
 ## 🏗️ Tech Stack
 
-- **Runtime**: Node.js 22+
+- **Runtime**: Node.js 22+ (Alpine Linux)
 - **Framework**: Fastify
 - **Language**: TypeScript
 - **Database**: PostgreSQL 17
@@ -232,4 +186,3 @@ The API is built with Fastify. Once running, you can explore:
 - **Authentication**: Better Auth
 - **Package Manager**: pnpm
 - **Containerization**: Docker & Docker Compose
-- **Database Admin**: pgAdmin (development)
